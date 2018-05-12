@@ -23,8 +23,11 @@ Our target audience will be those who are either for or against Medicare and oth
 Three potential questions that our audience should learn from our resource are:
 
 -Does programs such as Medicaid, CHIP and Medicare increase emergency room visits?
+
 -How does Medicaid help those who qualify?
+
 -How would budget cuts impact healthcare for those who receive Medicaid currently?
+
 
 Technical Description
 

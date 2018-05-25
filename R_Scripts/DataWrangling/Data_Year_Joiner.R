@@ -1,3 +1,4 @@
+# Data_Year_Joiner Script
 # This script joins together all the DRG data for the years 2011, 2012, 2013, 2014, 2015 together
 # To Make it Into One MASSIVE DATASET
 
@@ -5,6 +6,10 @@
 
 library(dplyr)
 library(readr)
+
+#-----------------------------------------------------------------------------------------------#
+# Loading the DRG datasets for 2011,12,13,14,15                                                 #
+#-----------------------------------------------------------------------------------------------#
 
 # Creating a dataframe for each year by reading the data from the csvs 
 inpatients_2011<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_the_Top_100_Diagnosis-Related_Groups__DRG__-_FY2011.csv")

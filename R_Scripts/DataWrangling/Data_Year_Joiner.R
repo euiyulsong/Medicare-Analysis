@@ -7,11 +7,11 @@ library(dplyr)
 library(readr)
 
 # Creating a dataframe for each year by reading the data from the csvs 
-inpatients_2011<-read.csv("../../ProjectData/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_the_Top_100_Diagnosis-Related_Groups__DRG__-_FY2011.csv")
-inpatients_2012<-read.csv("../../ProjectData/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_the_Top_100_Diagnosis-Related_Groups__DRG__-_FY2012.csv")
-inpatients_2013<-read.csv("../../ProjectData/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_the_Top_100_Diagnosis-Related_Groups__DRG__-_FY2013.csv")
-inpatients_2014<-read.csv("../../ProjectData/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_All_Diagnosis-Related_Groups__DRG__-_FY2014.csv")
-inpatients_2015<-read.csv("../../ProjectData/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_All_Diagnosis-Related_Groups__DRG__-_FY2015.csv")
+inpatients_2011<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_the_Top_100_Diagnosis-Related_Groups__DRG__-_FY2011.csv")
+inpatients_2012<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_the_Top_100_Diagnosis-Related_Groups__DRG__-_FY2012.csv")
+inpatients_2013<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_the_Top_100_Diagnosis-Related_Groups__DRG__-_FY2013.csv")
+inpatients_2014<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_All_Diagnosis-Related_Groups__DRG__-_FY2014.csv")
+inpatients_2015<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_All_Diagnosis-Related_Groups__DRG__-_FY2015.csv")
 
 # Adding a year column to each dataset 
 inpatients_2011$Year = 2011
@@ -81,18 +81,21 @@ inpatients_2013$avg.medicare.payments <- as.numeric(as.character(inpatients_2013
 #-----------------------------------------------------------------------------------------------#
 
 top_100_Drgs_2011_to_2013 <- rbind (inpatients_2011, inpatients_2012, inpatients_2013)
-write.csv(top_100_Drgs_2011_to_2013, file = "../../ProjectData/top100DRG_2011_2013.csv")
+write.csv(top_100_Drgs_2011_to_2013, file = "../../Data/Prepared/top100DRG_2011_2013.csv")
+View(top_100_Drgs_2011_to_2013)
 
 #-----------------------------------------------------------------------------------------------#
 # Creating a dataset for the DRGs for 2011, 2012, 2013, 2014, 2015                              #
 #-----------------------------------------------------------------------------------------------#
 
 Drgs_2011_to_2015 <-  rbind (inpatients_2011, inpatients_2012, inpatients_2013, inpatients_2014, inpatients_2015)
-write.csv(Drgs_2011_to_2015, file = "../../ProjectData/DRG_2011_2015.csv")
+write.csv(Drgs_2011_to_2015, file = "../../Data/Prepared/DRG_2011_2015.csv")
+View(Drgs_2011_to_2015)
 
 #-----------------------------------------------------------------------------------------------#
 # Creating a dataset for the DRGs for 2014, 2015                                                #
 #-----------------------------------------------------------------------------------------------#
 
 All_Drgs_2014_to_2015 <- rbind (inpatients_2014, inpatients_2015)
-write.csv(All_Drgs_2014_to_2015, file = "../../ProjectData/AllDRG_2014_2015.csv")
+write.csv(All_Drgs_2014_to_2015, file = "../../Data/Prepared/AllDRG_2014_2015.csv")
+View(All_Drgs_2014_to_2015)

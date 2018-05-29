@@ -14,7 +14,6 @@ library(tidyr)
 top_10_discharges <- read.csv("../../Data/Prepared/top_10_discharges.csv") 
 top_10_discharges <- top_10_discharges %>% arrange(total_discharges)
 colnames(top_10_discharges) <- c("drg","2011", "2012", "2013", "2014", "2015", "total")
-
 f <- list( family = "Open Sans, Sans Serif, monospace", size = 18, color = "#7f7f7f")
 
 # Vertical Bar Chart

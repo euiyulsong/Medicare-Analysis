@@ -1,12 +1,12 @@
 ---
-'title: "America, How ya doing?"
+title: "America, How ya doing?"
 author: "Zoshua Colah, Vanessa Hsu, Eui Yul Song, Katherine Lui"
 date: "5/24/2018"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r Part One:Summary, echo=FALSE, message=FALSE, warning=FALSE}
+
 #Loading Libraries
 library(devtools)
 library (dplyr)
@@ -14,22 +14,54 @@ library (knitr)
 library (plotly)
 ```
 
-## R Markdown
+# Introduction
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+The Medicare program of the United States, is a federal insurance program to help mitigate the financial burden healthcare places on people of ages 65 years and older, younger people with disabilities, and people with end-stage renal diseases. This project explores the most expensive inpatient procedures in the United States to get a better understanding of how these costs vary by state, year and more. This will provide Medicare beneficiaries with information on the varying costs of certain procedures. It will also give an overview of where much of the money allotted to Medicare is being used and how that amount is changing over the years.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# About the Data Set
 
-```{r cars}
-summary(cars)
-```
+## Inpatient Prospective Payment System (IPPS) Provider Summary for Diagnosis-Related Groups (DRG) - 2011 to 2015
 
-## Including Plots
+**The Centers for Medicare & Medicaid Services (CMS)** has prepared a public data set for the *years 2011 to 2015*, the Provider Utilization and Payment Data Inpatient Public Use File (herein referred to as “Inpatient PUF”), with information on services and procedures provided to Medicare beneficiaries by hospital facilities. The Inpatient PUF contains hospital-specific charges for the **more than 3,000 U.S. hospitals** that receive Medicare Inpatient Prospective Payment System (IPPS) payments paid under Medicare based on a rate per discharge using the Medicare Severity Diagnosis Related Group (MS-DRG). The Inpatient PUF is available for fiscal years 2011 through 2015 and reflect 100% final-action (i.e., all claim adjustmentshave been resolved) IPPS discharges for the Medicare fee-for-service (FFS) population. Beginning with FY2014 data, all MS-DRG discharges are reported in the Inpatient PUF. Prior years of the Inpatient PUF (FY2011 through FY2013) are limited to the top 100 most frequently billed discharges.
 
-You can also embed plots, for example:
+**Key Facts about the dataset:** 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+* More than 3,000  U.S. hospitals (that received Medicare) represented 
+* Represent more than 7 million discharges or 60 percent of total Medicare IPPS discharges
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Data Source
+
+
+
+# Explanation of our Tables Key Columns
+
+DRG Definition: The code and description identifying the MS-DRG. MS-DRGs are a classification system
+that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during
+the stay.
+Provider Id: The CMS Certification Number (CCN) assigned to the Medicare certified hospital facility.
+Provider Name: The name of the provider.
+Provider Street Address: The provider’s street address.
+Provider City: The city where the provider is located.
+Provider State: The state where the provider is located.
+Provider Zip Code: The provider’s zip code.
+Provider HRR: The Hospital Referral Region (HRR) where the provider is located.
+Total Discharges: The number of discharges billed by the provider for inpatient hospital services.
+Average Covered Charges: The provider's average charge for services covered by Medicare for all
+discharges in the MS-DRG. These will vary from hospital to hospital because of differences in hospital
+charge structures.
+Average Total Payments: The average total payments to all providers for the MS-DRG including the MSDRG
+amount, teaching, disproportionate share, capital, and outlier payments for all cases. Also included
+in average total payments are co-payment and deductible amounts that the patient is responsible for
+and any additional payments by third parties for coordination of benefits.
+5
+Average Medicare Payments: The average amount that Medicare pays to the provider for Medicare's
+share of the MS-DRG. Average Medicare payment amounts include the MS-DRG amount,
+teaching, disproportionate share, capital, and outlier payments for all cases. Medicare payments DO
+NOT include beneficiary co-payments and deductible amounts nor any additional payments from third
+parties for coordination of benefits. Note: In general, Medicare FFS claims with dates-of-service or
+dates-of-discharge on or after April 1, 2013, incurred a 2 percent reduction in Medicare payment. This is
+in response to mandatory across-the-board reductions in Federal spending, also known as
+sequestration. For additional information, visit http://www.cms.gov/Outreach-andEducation/Outreach/FFSProvPartProg/Downloads/2013-03-08-standalone.pdf
+
+# 
+

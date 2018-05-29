@@ -20,6 +20,8 @@ Unique_DRGs <- rawDRG[!duplicated(rawDRG), ]
 # getting number of occurances of a DRG
 DRG_For_Years <- Unique_DRGs %>% group_by(drg) %>% summarise(n =n())
 
+View(DRG_For_Years)
+
 # checking to see the DRGs which have occurred for all 5 years
 DRG_For_Years_5 <- DRG_For_Years %>% filter( n == 5)
 rownames(DRG_For_Years_5) <- 1:nrow(DRG_For_Years_5)

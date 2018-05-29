@@ -18,50 +18,76 @@ library (plotly)
 
 The Medicare program of the United States, is a federal insurance program to help mitigate the financial burden healthcare places on people of ages 65 years and older, younger people with disabilities, and people with end-stage renal diseases. This project explores the most expensive inpatient procedures in the United States to get a better understanding of how these costs vary by state, year and more. This will provide Medicare beneficiaries with information on the varying costs of certain procedures. It will also give an overview of where much of the money allotted to Medicare is being used and how that amount is changing over the years.
 
-# About the Data Set
+# Data Sources
 
 ## Inpatient Prospective Payment System (IPPS) Provider Summary for Diagnosis-Related Groups (DRG) - 2011 to 2015
 
 **The Centers for Medicare & Medicaid Services (CMS)** has prepared a public data set for the *years 2011 to 2015*, the Provider Utilization and Payment Data Inpatient Public Use File (herein referred to as “Inpatient PUF”), with information on services and procedures provided to Medicare beneficiaries by hospital facilities. The Inpatient PUF contains hospital-specific charges for the **more than 3,000 U.S. hospitals** that receive Medicare Inpatient Prospective Payment System (IPPS) payments paid under Medicare based on a rate per discharge using the Medicare Severity Diagnosis Related Group (MS-DRG). The Inpatient PUF is available for fiscal years 2011 through 2015 and reflect 100% final-action (i.e., all claim adjustmentshave been resolved) IPPS discharges for the Medicare fee-for-service (FFS) population. Beginning with FY2014 data, all MS-DRG discharges are reported in the Inpatient PUF. Prior years of the Inpatient PUF (FY2011 through FY2013) are limited to the top 100 most frequently billed discharges.
 
+*Link to Datasets* 
+
+* Top 100 DRGs for FY 2011: 
+* Top 100 DRGs for FY 2012: 
+* Top 100 DRGs for FY 2013: 
+* All DRGs for FY 2014: 
+* All DRGs for FY 2015: 
+
 **Key Facts about the dataset:** 
 
-* More than 3,000  U.S. hospitals (that received Medicare) represented 
 * Represent more than 7 million discharges or 60 percent of total Medicare IPPS discharges
+* More than 3,000  U.S. hospitals (that received Medicare) represented 
 
-# Data Source
+## DRG Category List
+
+Dr.Jihjane Li, an independant doctor in the state of Washington, provided us with a dataset which categorized the Diagnostic Related Groups by the body system they impact and the medical department which would be responsible for it.
+
+*Link to Dataset:* 
+
+# DRG DataSet for 2011 to 2015
+
+For our investigation, we created a parent dataset, which would contain all the DRG discharge and medicare data for the years 2011 - 2015.
+
+To make this dataset we did the following steps:
+
+* Data Wrangling: We binded the datasets for all the 5 years and joined them to DRG Category dataset we got from Dr.Jihjane Li.
+* Data Cleaning: We normalized the DRG name for each DRG number. This was because some of the DRGs Numbers had got small updates to their names such as a "+" in place of a ">". 
+* Data Exploration: Through our data exploration we were able to identify that we have data for all 5 years for only *91 DRGs*.
+
+
+## Data Set Variables
+
+* DRG Definition: The code and description identifying the MS-DRG. MS-DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay.
+* Provider Id: The CMS Certification Number (CCN) assigned to the Medicare certified hospital facility.
+* Provider Name: The name of the provider.
+* Provider Street Address: The provider’s street address.
+* Provider City: The city where the provider is located.
+* Provider State: The state where the provider is located.
+* Provider Zip Code: The provider’s zip code.
+* Provider HRR: The Hospital Referral Region (HRR) where the provider is located.
+* Total Discharges: The number of discharges billed by the provider for inpatient hospital services.
+* Average Covered Charges: The provider's average charge for services covered by Medicare for all discharges in the MS-DRG. These will vary from hospital to hospital because of differences in hospital charge structures.
+* Average Total Payments: The average total payments to all providers for the MS-DRG including the MSDRG amount, teaching, disproportionate share, capital, and outlier payments for all cases. Also included in average total payments are co-payment and deductible amounts that the patient is responsible for and any additional payments by third parties for coordination of benefits.
+* Average Medicare Payments: The average amount that Medicare pays to the provider for Medicare's share of the MS-DRG. Average Medicare payment amounts include the MS-DRG amount, teaching, disproportionate share, capital, and outlier payments for all cases. Medicare payments DO NOT include beneficiary co-payments and deductible amounts nor any additional payments from third parties for coordination of benefits. Note: In general, Medicare FFS claims with dates-of-service or dates-of-discharge on or after April 1, 2013, incurred a 2 percent reduction in Medicare payment. This is in response to mandatory across-the-board reductions in Federal spending, also known as sequestration.For additional information, visit http://www.cms.gov/Outreach-andEducation/Outreach/FFSProvPartProg/Downloads/2013-03-08-standalone.pdf
+* Body System: The human body system which is impacted with respect to the DRG.
+* Medical Department: the Medical Department responsible for the DRG
 
 
 
-# Explanation of our Tables Key Columns
 
-DRG Definition: The code and description identifying the MS-DRG. MS-DRGs are a classification system
-that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during
-the stay.
-Provider Id: The CMS Certification Number (CCN) assigned to the Medicare certified hospital facility.
-Provider Name: The name of the provider.
-Provider Street Address: The provider’s street address.
-Provider City: The city where the provider is located.
-Provider State: The state where the provider is located.
-Provider Zip Code: The provider’s zip code.
-Provider HRR: The Hospital Referral Region (HRR) where the provider is located.
-Total Discharges: The number of discharges billed by the provider for inpatient hospital services.
-Average Covered Charges: The provider's average charge for services covered by Medicare for all
-discharges in the MS-DRG. These will vary from hospital to hospital because of differences in hospital
-charge structures.
-Average Total Payments: The average total payments to all providers for the MS-DRG including the MSDRG
-amount, teaching, disproportionate share, capital, and outlier payments for all cases. Also included
-in average total payments are co-payment and deductible amounts that the patient is responsible for
-and any additional payments by third parties for coordination of benefits.
-5
-Average Medicare Payments: The average amount that Medicare pays to the provider for Medicare's
-share of the MS-DRG. Average Medicare payment amounts include the MS-DRG amount,
-teaching, disproportionate share, capital, and outlier payments for all cases. Medicare payments DO
-NOT include beneficiary co-payments and deductible amounts nor any additional payments from third
-parties for coordination of benefits. Note: In general, Medicare FFS claims with dates-of-service or
-dates-of-discharge on or after April 1, 2013, incurred a 2 percent reduction in Medicare payment. This is
-in response to mandatory across-the-board reductions in Federal spending, also known as
-sequestration. For additional information, visit http://www.cms.gov/Outreach-andEducation/Outreach/FFSProvPartProg/Downloads/2013-03-08-standalone.pdf
+
+
+# DRG Overview Datasets
+
+
+## Data Cleaning 
+
+
+
+# Data Exploration Critique
+To create the parent dataset which we would using for our investigation, we first began by conducting a data exploration critique of the DRG datasets we collected.
+
+
+
 
 # 
 

@@ -218,7 +218,14 @@ medicare_payments_bar
 ##############################################################################################
 
 cost_breakdown <- read.csv("../../Data/Prepared/top_10_discharge_costs.csv")
+cost_breakdown <- cost_breakdown %>% arrange(-discharges)
 View(cost_breakdown)
+
+t <- list(
+  family = "Arial",
+  size = 12,
+  color = 'Black')
+
 
 cost_breakdown_chart <- plot_ly(cost_breakdown, 
                                 y = ~reorder(drg, discharges), 
@@ -228,14 +235,18 @@ cost_breakdown_chart <- plot_ly(cost_breakdown,
                                 marker = list(color = '#0c2461'),
                                 orientation = "h") %>%
                         add_trace(x = ~avg_total_payment, name = 'Average Total Payments', marker = list(color = '#b71540')) %>%
-                        add_trace(x = ~avg_medicare_payment, name = 'Average Medicare Charges', marker = list(color = '#e58e26')) %>%
-                        layout(xaxis = list(title = 'Cost ($)'),
-                               yaxis = list(title = 'DRGs with Most Discharges - Top 10'), 
+                        add_trace(x = ~avg_medicare_payment, name = 'Average Medicare Charges', marker = list(color = '#e58e26')) %>% 
+                        layout(title = "Cost Breakdown for the DRGs with Most Discharges - Top 10",
+                               font = t, 
+                               xaxis = list(title = 'Cost ($)'),
+                               yaxis = list(title = ''), 
                                barmode = 'group', margin = list(l = 550, pad = 4), 
-                               xaxis = list(tickangle = 45)) %>%  
-                                add_annotations(xref = 'x1', yref = 'y',
-                                                y = ~total + 120000,
-                                                text = ~paste(total, '<br>discharges'),
-                                                font = list(family = 'Arial', size = 12, color = 'rgb(150, 171, 234)'),
-                                                showarrow = FALSE)     
-cost_breakdown_chart
+                               xaxis = list(tickangle = 45),
+                               legend = list(orientation = 'h', title = 'Legend', font = list( family = "sans-serif",
+                                                                            size = 12,
+                                                                            color = "#000"),
+                                                                            bgcolor = "FFFFFF",
+                                                                            bordercolor = "#0a3d62",
+                                                                            borderwidth = 2)) 
+
+cost_breakdown_chart 

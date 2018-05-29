@@ -39,7 +39,7 @@ The Medicare program of the United States, is a federal insurance program to hel
 
 ## DRG Category List
 
-Dr.Jihjane Li, an independant doctor in the state of Washington, provided us with a dataset which categorized the Diagnostic Related Groups by the body system they impact and the medical department which would be responsible for it.
+Dr.Jihjane Li, an independant doctor, provided us with a dataset which categorized the Diagnostic Related Groups by the body system they impact and the medical department which would be responsible for it.
 
 *Link to Dataset:* 
 
@@ -53,41 +53,35 @@ To make this dataset we did the following steps:
 * Data Cleaning: We normalized the DRG name for each DRG number. This was because some of the DRGs Numbers had got small updates to their names such as a "+" in place of a ">". 
 * Data Exploration: Through our data exploration we were able to identify that we have data for all 5 years for only *91 DRGs*.
 
+**Link to Dataset:**
 
 ## Data Set Variables
 
-* DRG Definition: The code and description identifying the MS-DRG. MS-DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay.
-* Provider Id: The CMS Certification Number (CCN) assigned to the Medicare certified hospital facility.
-* Provider Name: The name of the provider.
-* Provider Street Address: The provider’s street address.
-* Provider City: The city where the provider is located.
-* Provider State: The state where the provider is located.
-* Provider Zip Code: The provider’s zip code.
-* Provider HRR: The Hospital Referral Region (HRR) where the provider is located.
-* Total Discharges: The number of discharges billed by the provider for inpatient hospital services.
-* Average Covered Charges: The provider's average charge for services covered by Medicare for all discharges in the MS-DRG. These will vary from hospital to hospital because of differences in hospital charge structures.
-* Average Total Payments: The average total payments to all providers for the MS-DRG including the MSDRG amount, teaching, disproportionate share, capital, and outlier payments for all cases. Also included in average total payments are co-payment and deductible amounts that the patient is responsible for and any additional payments by third parties for coordination of benefits.
-* Average Medicare Payments: The average amount that Medicare pays to the provider for Medicare's share of the MS-DRG. Average Medicare payment amounts include the MS-DRG amount, teaching, disproportionate share, capital, and outlier payments for all cases. Medicare payments DO NOT include beneficiary co-payments and deductible amounts nor any additional payments from third parties for coordination of benefits. Note: In general, Medicare FFS claims with dates-of-service or dates-of-discharge on or after April 1, 2013, incurred a 2 percent reduction in Medicare payment. This is in response to mandatory across-the-board reductions in Federal spending, also known as sequestration.For additional information, visit http://www.cms.gov/Outreach-andEducation/Outreach/FFSProvPartProg/Downloads/2013-03-08-standalone.pdf
-* Body System: The human body system which is impacted with respect to the DRG.
-* Medical Department: the Medical Department responsible for the DRG
+* **DRG Definition:** The code and description identifying the MS-DRG. MS-DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay.
+* **Provider Id:** The CMS Certification Number (CCN) assigned to the Medicare certified hospital facility.
+* **Provider Name:** The name of the provider.
+* **Provider Street Address:** The provider’s street address.
+* **Provider City:** The city where the provider is located.
+* **Provider State:** The state where the provider is located.
+* **Provider Zip Code:** The provider’s zip code.
+* **Provider HRR:** The Hospital Referral Region (HRR) where the provider is located.
+* **Total Discharges:** The number of discharges billed by the provider for inpatient hospital services.
+* **Average Covered Charges:** The provider's average charge for services covered by Medicare for all discharges in the MS-DRG. These will vary from hospital to hospital because of differences in hospital charge structures.
+* **Average Total Payments:** The average total payments to all providers for the MS-DRG including the MSDRG amount, teaching, disproportionate share, capital, and outlier payments for all cases.
+* **Average Medicare Payments:** The average amount that Medicare pays to the provider for Medicare's share of the MS-DRG. Average Medicare payment amounts include the MS-DRG amount, teaching, disproportionate share, capital, and outlier payments for all cases.
+* **Body System:** The human body system which is impacted with respect to the DRG.
+* **Medical Department:** the Medical Department responsible for the DRG
 
+## Overview Datasets
 
+In addition to the parent dataset, we created overview datasets to give a concise overview about the following statistics for each DRG, medical department, and human body system: 
 
+* Total Discharges 
+* Average Medicare Payments
+* Average Covered Charges 
+* Average Total Payments 
 
+In addition to these overview datasets, we created datasets for the top 5, 10, 20, 50 and 100 DRGs for each statistic. 
 
-
-# DRG Overview Datasets
-
-
-## Data Cleaning 
-
-
-
-# Data Exploration Critique
-To create the parent dataset which we would using for our investigation, we first began by conducting a data exploration critique of the DRG datasets we collected.
-
-
-
-
-# 
+Link to Overview Datasets:
 

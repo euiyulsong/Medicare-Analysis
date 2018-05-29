@@ -20,6 +20,11 @@ inpatients_2013<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__
 inpatients_2014<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_All_Diagnosis-Related_Groups__DRG__-_FY2014.csv")
 inpatients_2015<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__IPPS__Provider_Summary_for_All_Diagnosis-Related_Groups__DRG__-_FY2015.csv")
 
+# Creating the DRG Category dataframe which contains all the medical categories for the DRGs
+drg_category <- read.csv("../../Data/Prepared/DRGs_with_categories.csv")
+colnames(drg_category)<- c("drg","body_system", "medical_department", "body_part") 
+drg_category <- drg_category %>% select(drg, body_system, medical_department)
+
 # Adding a year column to each dataset 
 inpatients_2011$Year = 2011
 inpatients_2012$Year = 2012
@@ -74,6 +79,7 @@ inpatients_2013$avg_medicare_payments<-parse_number(inpatients_2013$avg_medicare
 #-----------------------------------------------------------------------------------------------#
 
 Drgs_2011_to_2015 <-  rbind (inpatients_2011, inpatients_2012, inpatients_2013, inpatients_2014, inpatients_2015)
+Drgs_2011_to_2015<- Drgs_2011_to_2015 %>% merge(drg_category, by = "drg") 
 View(Drgs_2011_to_2015)
 
 #-----------------------------------------------------------------------------------------------#
@@ -81,6 +87,7 @@ View(Drgs_2011_to_2015)
 #-----------------------------------------------------------------------------------------------#
 
 top_100_Drgs_2011_to_2013 <- rbind (inpatients_2011, inpatients_2012, inpatients_2013)
+top_100_Drgs_2011_to_2013 <- top_100_Drgs_2011_to_2013 %>% merge(drg_category, by = "drg") 
 View(top_100_Drgs_2011_to_2013)
 
 #-----------------------------------------------------------------------------------------------#
@@ -88,7 +95,8 @@ View(top_100_Drgs_2011_to_2013)
 #-----------------------------------------------------------------------------------------------#
 
 All_Drgs_2014_to_2015 <- rbind (inpatients_2014, inpatients_2015)
-
+All_Drgs_2014_to_2015 <- All_Drgs_2014_to_2015 %>% merge(drg_category, by = "drg") 
+View(All_Drgs_2014_to_2015)
 #################################################################################################
 #################################################################################################
 #################################################################################################
@@ -99,11 +107,12 @@ All_Drgs_2014_to_2015 <- rbind (inpatients_2014, inpatients_2015)
 # I am invesitgating this, by finding the DRG numbers which have been duplicated
 #-----------------------------------------------------------------------------------------------#
 
-drgs <- Drgs_2011_to_2015 %>% select(drg) %>% arrange(drg)
-uniqdrg <- unique(drgs, incomparables = FALSE )
-uniqdrg$drg <- substr(uniqdrg$drg, 0, 3)
-uniqdrg <- uniqdrg %>% arrange(drg)
-uniqdrg<- uniqdrg[uniqdrg$drg %in% uniqdrg$drg[duplicated(uniqdrg$drg)],]
+# Code Commented out for the time being
+# drgs <- Drgs_2011_to_2015 %>% select(drg) %>% arrange(drg)
+# uniqdrg <- unique(drgs, incomparables = FALSE )
+# uniqdrg$drg <- substr(uniqdrg$drg, 0, 3)
+# uniqdrg <- uniqdrg %>% arrange(drg)
+# uniqdrg<- uniqdrg[uniqdrg$drg %in% uniqdrg$drg[duplicated(uniqdrg$drg)],]
 
 # The following DRG numbers have got an updated number:
 
@@ -244,6 +253,7 @@ All_Drgs_2014_to_2015$drg <- replace(as.character(All_Drgs_2014_to_2015$drg),
 #-----------------------------------------------------------------------------------------------#
 # Saving the dataset for the DRGs for 2014, 2015                                                #
 #-----------------------------------------------------------------------------------------------#
+
 write.csv(top_100_Drgs_2011_to_2013, file = "../../Data/Prepared/top100DRG_2011_2013.csv", row.names=FALSE)
 write.csv(Drgs_2011_to_2015, file = "../../Data/Prepared/DRG_2011_2015.csv", row.names=FALSE)
 write.csv(All_Drgs_2014_to_2015, file = "../../Data/Prepared/AllDRG_2014_2015.csv", row.names=FALSE)

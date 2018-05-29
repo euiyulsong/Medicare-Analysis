@@ -232,21 +232,23 @@ cost_breakdown_chart <- plot_ly(cost_breakdown,
                                 x = ~avg_covered_charge, 
                                 type = 'bar', 
                                 name = 'Average Covered Charges', 
-                                marker = list(color = '#0c2461'),
+                                marker = list(color = '#31A4DB'),
                                 orientation = "h") %>%
-                        add_trace(x = ~avg_total_payment, name = 'Average Total Payments', marker = list(color = '#b71540')) %>%
-                        add_trace(x = ~avg_medicare_payment, name = 'Average Medicare Charges', marker = list(color = '#e58e26')) %>% 
+                        add_trace(x = ~avg_total_payment, name = 'Average Total Payments', marker = list(color = '#9EC43C')) %>%
+                        add_trace(x = ~avg_medicare_payment, name = 'Average Medicare Charges', marker = list(color = 'F6AB3B')) %>% 
                         layout(title = "Cost Breakdown for the DRGs with Most Discharges - Top 10",
                                font = t, 
                                xaxis = list(title = 'Cost ($)'),
                                yaxis = list(title = ''), 
-                               barmode = 'group', margin = list(l = 550, pad = 4), 
+                               barmode = 'group', margin = list(l = 550,t = 50, pad = 4), 
                                xaxis = list(tickangle = 45),
-                               legend = list(orientation = 'h', title = 'Legend', font = list( family = "sans-serif",
-                                                                            size = 12,
-                                                                            color = "#000"),
-                                                                            bgcolor = "FFFFFF",
-                                                                            bordercolor = "#0a3d62",
-                                                                            borderwidth = 2)) 
+                               legend = list(orientation = 'h', 
+                                             title = 'Legend',
+                                             font = list( family = "sans-serif",
+                                                          size = 12,
+                                                          color = "#000"),
+                                                          bgcolor = "FFFFFF",
+                                                          bordercolor = "#0a3d62",
+                                                          borderwidth = 2)) 
 
 cost_breakdown_chart 

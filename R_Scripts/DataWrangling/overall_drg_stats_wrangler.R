@@ -29,7 +29,7 @@ DRG_overall_discharges <- DRG_overall_discharges %>% mutate(total_discharges = D
                                                               DRG_overall_discharges$`2013`+ 
                                                               DRG_overall_discharges$`2014`+
                                                               DRG_overall_discharges$`2015`) %>% arrange (-total_discharges)
-
+colnames()
 write.csv(DRG_overall_discharges, file = "../../Data/Prepared/overall_drg_discharges.csv", row.names=FALSE)
 
 top_5_discharges <- head(DRG_overall_discharges, 5)

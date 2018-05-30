@@ -20,6 +20,8 @@ f <- list( family = "Open Sans, Sans Serif, monospace", size = 18, color = "#7f7
 x <- list( title = "DRG", titlefont = f)
 y <- list( title = "Number of Discharges", titlefont = f)
 
+View(top_10_discharges)
+
 discharges_bar <- plot_ly(top_10_discharges,
                             x = ~reorder(drg, -total),
                             y = ~`2011` , 

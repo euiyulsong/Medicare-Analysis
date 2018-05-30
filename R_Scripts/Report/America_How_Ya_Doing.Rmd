@@ -29,14 +29,8 @@ We have explored the most expensive inpatient procedures in the United States to
 
 **The Centers for Medicare & Medicaid Services (CMS)** has prepared a public data set for the *years 2011 to 2015*, the Provider Utilization and Payment Data Inpatient Public Use File (herein referred to as “Inpatient PUF”), with information on services and procedures provided to Medicare beneficiaries by hospital facilities. The Inpatient PUF contains hospital-specific charges for the **more than 3,000 U.S. hospitals** that receive Medicare Inpatient Prospective Payment System (IPPS) payments paid under Medicare based on a rate per discharge using the Medicare Severity Diagnosis Related Group (MS-DRG). The Inpatient PUF is available for fiscal years 2011 through 2015 and reflect 100% final-action (i.e., all claim adjustmentshave been resolved) IPPS discharges for the Medicare fee-for-service (FFS) population. Beginning with FY2014 data, all MS-DRG discharges are reported in the Inpatient PUF. Prior years of the Inpatient PUF (FY2011 through FY2013) are limited to the top 100 most frequently billed discharges.
 
-*Link to Datasets* 
-  
-* Top 100 DRGs for FY 2011: 
-* Top 100 DRGs for FY 2012: 
-* Top 100 DRGs for FY 2013: 
-* All DRGs for FY 2014: 
-* All DRGs for FY 2015: 
-  
+[Download Raw Datasets](https://drive.google.com/drive/folders/1wpTWGWYK4IRdIe6GIrrcKthjpSM6Lok3?usp=sharing)
+
 **Key Facts about the dataset:** 
   
 * Represent more than 7 million discharges or 60 percent of total Medicare IPPS discharges
@@ -45,8 +39,6 @@ We have explored the most expensive inpatient procedures in the United States to
 ## DRG Category List
 
 Dr.Jihjane Li, an independant doctor, provided us with a dataset which categorized the Diagnostic Related Groups by the body system they impact and the medical department which would be responsible for it.
-
-*Link to Dataset:* 
   
 # DRG DataSet for 2011 to 2015
   
@@ -58,7 +50,7 @@ To make this dataset we did the following steps:
 * Data Cleaning: We normalized the DRG name for each DRG number. This was because some of the DRGs Numbers had got small updates to their names such as a "+" in place of a ">". 
 * Data Exploration: Through our data exploration we were able to identify that we have data for all 5 years for only *91 DRGs*.
 
-**Link to Dataset:**
+[Download DRG Datasets for 2011 -2015](https://drive.google.com/drive/folders/1AkKrD2MhIYT0zWCGbci0t1ye_LM39asV?usp=sharing)
   
 ## Data Set Variables
   
@@ -89,6 +81,8 @@ In addition to the parent dataset, we created overview datasets to give a concis
 In addition to these overview datasets, we created datasets for the top 5, 10, 20, 50 and 100 DRGs for each statistic. 
 
 [Download Overview Datasets](https://drive.google.com/drive/folders/1jFGiPVSD6bUyfyUvHMoYUWjG5qbjXl9V?usp=sharing)
+
+[See All Data Used](https://drive.google.com/drive/folders/1fAqt_u72TyYLqfuVihmJ6Y0pS1mzFw8U?usp=sharing)
 
 --------------------------------------------------------
   
@@ -134,7 +128,8 @@ discharges_h_bar <- plot_ly(top_10_discharges,
                               add_trace(x = ~`2013`, name = "2013", marker = list(color = '#B33771')) %>% 
                               add_trace(x = ~`2014`, name = "2014", marker = list(color = '#3B3B98')) %>% 
                               add_trace(x = ~`2015`, name = "2015", marker = list(color = '#182C61')) %>%
-                              layout(title = 'DRGs with Most Discharges for 2011-15 (Top 10)',
+                              layout(height = 500,
+                                     title = 'DRGs with Most Discharges for 2011-15 (Top 10)',
                                      font = t,
                                      xaxis = x, 
                                      yaxis = y,
@@ -174,7 +169,8 @@ cost_breakdown_chart <- plot_ly(cost_breakdown,
                                 orientation = "h") %>%
   add_trace(x = ~avg_total_payment, name = 'Average Total Payments', marker = list(color = '#9EC43C')) %>%
   add_trace(x = ~avg_medicare_payment, name = 'Average Medicare Charges', marker = list(color = 'F6AB3B')) %>% 
-  layout(title = "Cost Breakdown for the DRGs with Most Discharges - Top 10",
+  layout(height = 500,
+         title = "Cost Breakdown for the DRGs with Most Discharges - Top 10",
          font = t, 
          xaxis = list(title = 'Cost ($)'),
          yaxis = list(title = ''), 
@@ -411,11 +407,11 @@ plot.2015.lowest <- plot_ly(lowest.2015, x = ~reorder(Provider.Name, avg_total_p
 `r plot.2015.lowest`
 
 # Analyzing Cost Change with Time
-```{r Part IDK: Analyzing Cost Change with Time, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
+```{r Part Seven: Analyzing Cost Change with Time, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
 
 drg_year_breakdown_top100 <- read.csv("../../Data/Prepared/year_cost_breakdown_100.csv")
 
-discharge_top100_medicare <- drg_year_breakdown_top100 %>% plot_ly(x = ~avg_covered_charge, 
+covered_top100_medicare <- drg_year_breakdown_top100 %>% plot_ly(x = ~avg_covered_charge, 
                                                                     y = ~avg_medicare_payment, 
                                                                     color = ~medical_department, 
                                                                     frame = ~year, 
@@ -429,10 +425,111 @@ discharge_top100_medicare <- drg_year_breakdown_top100 %>% plot_ly(x = ~avg_cove
                                                                     animation_opts(1000, easing = "elastic", redraw = FALSE)
 ```
 
-`r discharge_top100_medicare`
+`r covered_top100_medicare`
+
+# Medical Department Statistics
+
+Statistics made for the common to understand the DRG Discharge and Medicare Cost Statistics.
+
+```{r Part Eight:Total Discharge Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
+
+##############################################################################################
+# Discharge Data                                                                             #
+##############################################################################################
+
+medical_dept_discharge <- read.csv("../../Data/Prepared/medical_department_breakdown_discharges.csv") 
+medical_dept_discharge  <- medical_dept_discharge  %>% arrange(-total)
+medical_dept_discharge <- head(medical_dept_discharge, 15)
+colnames(medical_dept_discharge) <- c("medical_department","2011", "2012", "2013", "2014", "2015", "total")
+f <- list( family = "Open Sans, Sans Serif, monospace", size = 10, color = "#7f7f7f")
+
+##############################################################################################
+# Discharge Bar Chart Viz                                                                    #
+##############################################################################################
+
+# Horizontal Bar Chart
+
+y <- list( title = "", titlefont = f)
+x <- list( title = "Number of Discharges", titlefont = f)
+t <- list(
+family = "Arial",
+size = 9,
+color = 'Black')
+
+medical_dept_discharge_h_bar <- plot_ly(medical_dept_discharge,
+                            x = ~`2011`,
+                            y = ~reorder(medical_department,total), 
+                            type = 'bar', 
+                            orientation = 'h',
+                            name = '2011', marker = list(color = '#ffeb3b')) %>% 
+                            add_trace(x = ~`2012`, name = "2012", marker = list(color = '#ffd740')) %>%
+                              add_trace(x = ~`2013`, name = "2013", marker = list(color = '#ffc400')) %>% 
+                              add_trace(x = ~`2014`, name = "2014", marker = list(color = '#ffab00')) %>% 
+                              add_trace(x = ~`2015`, name = "2015", marker = list(color = 'ff6f00')) %>%
+                              layout(height = 800, 
+                                     title = 'Top 15 Medical Departments with Most Discharges',
+                                     font = t,
+                                     xaxis = x, 
+                                     yaxis = y,
+                                     barmode = 'stack',
+                                     margin = list(l = 150, pad = 4), 
+                                     yaxis = list(tickangle = 90),
+                                     legend = list(title = 'Legend',
+                                                   font = list( family = "sans-serif",
+                                                                size = 8,
+                                                                color = "#000"),
+                                                   bgcolor = "FFFFFF",
+                                                   bordercolor = "#0a3d62",
+                                                   borderwidth = 0.5)) %>%
+                              add_annotations(xref = 'x1', yref = 'y',
+                                              x = ~total + 350000,
+                                              text =  ~paste(total, '<br>discharges'),
+                                              font = list(family = 'Arial', size = 10, color = 'rgb(10, 10, 10)'),
+                                              showarrow = FALSE)
+
+
+##############################################################################################
+# Cost Break Down Bar Chart                                            #
+##############################################################################################
+cost_breakdown <- read.csv("../../Data/Prepared/medical_department_breakdown_payments.csv")
+cost_breakdown <- cost_breakdown %>% arrange(-discharges)
+
+t <- list(
+  family = "sans-serif",
+  size = 12,
+  color = 'Black')
+
+medical_dept_cost_breakdown_chart <- plot_ly(cost_breakdown, 
+                                y = ~reorder(medical_department, avg_covered_charge), 
+                                x = ~avg_covered_charge, 
+                                type = 'bar', 
+                                name = 'Average Covered Charges', 
+                                marker = list(color = '#31A4DB'),
+                                orientation = "h") %>%
+  add_trace(x = ~avg_total_payment, name = 'Average Total Payments', marker = list(color = '#9EC43C')) %>%
+  add_trace(x = ~avg_medicare_payment, name = 'Average Medicare Charges', marker = list(color = 'F6AB3B')) %>% 
+  layout(height = 800,
+         title = "Average Cost Breakdown for the Medical Departments",
+         font = t, 
+         xaxis = list(title = 'Cost ($)'),
+         yaxis = list(title = ''), 
+         barmode = 'group', margin = list(l=220, pad = 4), 
+         xaxis = list(tickangle = 45),
+         legend = list(title = 'Legend',
+                       font = list( family = "sans-serif",
+                                    size = 10,
+                                    color = "#000"),
+                       bgcolor = "FFFFFF",
+                       bordercolor = "#0a3d62",
+                       borderwidth = 0.5)) 
+```
+## Top 15 Medical Departments with Most Discharges
+`r medical_dept_discharge_h_bar`
+
+## Top 15 Medical Departments Costs Breakdown
+`r medical_dept_cost_breakdown_chart`
 
 # Works Cited
-
 * https://www.cnn.com/2018/03/06/health/hip-knee-replacement-surgeries-earlier-study/index.html
 * https://medicare.com/coverage/does-medicare-cover-hip-replacements/
 * https://medicare.com/coverage/does-medicare-cover-knee-replacement-surgery/

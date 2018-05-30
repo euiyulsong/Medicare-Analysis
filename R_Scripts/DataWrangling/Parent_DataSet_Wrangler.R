@@ -22,8 +22,7 @@ inpatients_2015<-read.csv("../../Data/Raw/Inpatient_Prospective_Payment_System__
 
 # Creating the DRG Category dataframe which contains all the medical categories for the DRGs
 drg_category <- read.csv("../../Data/Prepared/DRGs_with_categories.csv")
-colnames(drg_category)<- c("drg","body_system", "medical_department", "body_part") 
-drg_category <- drg_category %>% select(drg, body_system, medical_department)
+colnames(drg_category)<- c("drg","body_system", "medical_department") 
 
 # Adding a year column to each dataset 
 inpatients_2011$Year = 2011

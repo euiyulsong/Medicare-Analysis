@@ -29,7 +29,7 @@ DRG_overall_discharges <- DRG_overall_discharges %>% mutate(total_discharges = D
                                                               DRG_overall_discharges$`2013`+ 
                                                               DRG_overall_discharges$`2014`+
                                                               DRG_overall_discharges$`2015`) %>% arrange (-total_discharges)
-colnames()
+
 write.csv(DRG_overall_discharges, file = "../../Data/Prepared/overall_drg_discharges.csv", row.names=FALSE)
 
 top_5_discharges <- head(DRG_overall_discharges, 5)
@@ -167,14 +167,61 @@ write.csv(top_100_discharge_costs, file = "../../Data/Prepared/top_100_discharge
 
 ###############################################################################################
 
-year_cost_breakdown <- all_DRGdata %>% group_by(drg, year, medical_department) %>% summarise (discharges = sum(discharges),
+year_cost_breakdown <- all_DRGdata %>% group_by(drg, year, medical_department, body_system) %>% summarise (discharges = sum(discharges),
                                                                avg_medicare_payment = mean(avg_medicare_payments), 
                                                                avg_covered_charge = mean(avg_covered_charges), 
                                                                avg_total_payment = mean(avg_total_payments)) %>% arrange (-discharges)
-View(year_cost_breakdown)
-
 
 write.csv(year_cost_breakdown, file = "../../Data/Prepared/year_cost_breakdown.csv", row.names=FALSE)
+
+
+###############################################################################################
+
+medical_department_breakdown <- all_DRGdata %>% group_by(medical_department, year) %>% summarise (discharges = sum(discharges),
+                                                                                                                 avg_medicare_payment = mean(avg_medicare_payments), 
+                                                                                                                 avg_covered_charge = mean(avg_covered_charges), 
+                                                                                                                 avg_total_payment = mean(avg_total_payments)) %>% arrange (-discharges)
+
+
+medical_department_breakdown_discharges <- medical_department_breakdown %>% select(medical_department, year, discharges)
+
+medical_department_breakdown_discharges <- spread(medical_department_breakdown_discharges, year, discharges)
+medical_department_breakdown_discharges[is.na(medical_department_breakdown_discharges)] <- 0
+medical_department_breakdown_discharges <- medical_department_breakdown_discharges %>% mutate(total = `2011` + `2012` + `2013` + `2014` + `2015`) %>% arrange(-total)
+
+write.csv(medical_department_breakdown_discharges, file = "../../Data/Prepared/medical_department_breakdown_discharges.csv", row.names=FALSE)
+
+medical_department_breakdown_payments <- medical_department_breakdown %>% group_by(medical_department) %>% summarise (discharges = sum(discharges),
+                                                                                                                    avg_medicare_payment = mean(avg_medicare_payment), 
+                                                                                                                    avg_covered_charge = mean(avg_covered_charge), 
+                                                                                                                    avg_total_payment = mean(avg_total_payment)) %>% arrange(-discharges)
+
+write.csv(medical_department_breakdown_payments, file = "../../Data/Prepared/medical_department_breakdown_payments.csv", row.names=FALSE)
+
+###############################################################################################
+
+body_system_breakdown <- all_DRGdata %>% group_by(body_system, year) %>% summarise (discharges = sum(discharges),
+                                                                                    avg_medicare_payment = mean(avg_medicare_payments), 
+                                                                                    avg_covered_charge = mean(avg_covered_charges), 
+                                                                                    avg_total_payment = mean(avg_total_payments)) %>% arrange (-discharges)
+
+
+body_system_breakdown_discharges <- body_system_breakdown %>% select(body_system, year, discharges)
+
+body_system_breakdown_discharges <- spread(body_system_breakdown_discharges, year, discharges)
+body_system_breakdown_discharges[is.na(body_system_breakdown_discharges)] <- 0
+body_system_breakdown_discharges <- body_system_breakdown_discharges %>% mutate(total = `2011` + `2012` + `2013` + `2014` + `2015`) %>% arrange(-total)
+
+write.csv(body_system_breakdown_discharges, file = "../../Data/Prepared/body_system_breakdown_discharges.csv", row.names=FALSE)
+
+body_system_breakdown_payments <- body_system_breakdown %>% group_by(body_system) %>% summarise (discharges = sum(discharges),
+                                                                                                 avg_medicare_payment = mean(avg_medicare_payment), 
+                                                                                                 avg_covered_charge = mean(avg_covered_charge), 
+                                                                                                 avg_total_payment = mean(avg_total_payment)) %>% arrange(-discharges)
+
+write.csv(body_system_breakdown_payments, file = "../../Data/Prepared/body_system_breakdown_payments.csv", row.names=FALSE)
+
+###############################################################################################
 top_100_discharge_names <- top_100_discharges %>% select(drg)
 year_cost_breakdown_100 <- year_cost_breakdown %>% semi_join(top_100_discharge_names, by = "drg")
 write.csv(year_cost_breakdown_100 , file = "../../Data/Prepared/year_cost_breakdown_100.csv", row.names=FALSE)

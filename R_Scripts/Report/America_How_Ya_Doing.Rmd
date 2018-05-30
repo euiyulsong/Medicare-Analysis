@@ -116,28 +116,37 @@ t <- list(
   size = 9,
   color = 'Black')
 
+
 discharges_h_bar <- plot_ly(top_10_discharges,
                             x = ~`2011`,
                             y = ~reorder(drg,total), 
                             type = 'bar', 
                             orientation = 'h',
                             name = '2011', marker = list(color = '#25CCF7')) %>% 
-  add_trace(x = ~`2012`, name = "2012", marker = list(color = '#1B9CFC')) %>%
-  add_trace(x = ~`2013`, name = "2013", marker = list(color = '#B33771')) %>% 
-  add_trace(x = ~`2014`, name = "2014", marker = list(color = '#3B3B98')) %>% 
-  add_trace(x = ~`2015`, name = "2015", marker = list(color = '#182C61')) %>%
-  layout(title = 'DRGs with Most Discharges for 2011-15 (Top 10)',
-         font = t,
-         xaxis = x, 
-         yaxis = y,
-         barmode = 'stack',
-         margin = list(l = 420, b = 100, pad = 4), 
-         yaxis = list(tickangle = 90)) %>%
-  add_annotations(xref = 'x1', yref = 'y',
-                  x = ~total + 180000,
-                  text =  ~paste(total, '<br>discharges'),
-                  font = list(family = 'Arial', size = 10, color = 'rgb(150, 171, 234)'),
-                  showarrow = FALSE)    
+                    add_trace(x = ~`2012`, name = "2012", marker = list(color = '#1B9CFC')) %>%
+                    add_trace(x = ~`2013`, name = "2013", marker = list(color = '#B33771')) %>% 
+                    add_trace(x = ~`2014`, name = "2014", marker = list(color = '#3B3B98')) %>% 
+                    add_trace(x = ~`2015`, name = "2015", marker = list(color = '#182C61')) %>%
+                    layout(title = 'DRGs with Most Discharges for 2011-15 (Top 10)',
+                            font = t,
+                            xaxis = x, 
+                            yaxis = y,
+                            barmode = 'stack',
+                            margin = list(l = 420, b = 100, pad = 4), 
+                            yaxis = list(tickangle = 90),
+                            legend = list(orientation = 'h', 
+                            title = 'Legend',
+                            font = list( family = "sans-serif",
+                            size = 8,
+                            color = "#000"),
+                            bgcolor = "FFFFFF",
+                            bordercolor = "#0a3d62",
+                            borderwidth = 0.5)) %>%
+                    add_annotations(xref = 'x1', yref = 'y',
+                    x = ~total + 170000,
+                    text =  ~paste(total, '<br>discharges'),
+                    font = list(family = 'Arial', size = 10, color = 'rgb(150, 171, 234)'),
+                    showarrow = FALSE)    
 
 ##############################################################################################
 # Top 10 DRG Discharges Cost Break Down Bar Chart                                            #
@@ -173,16 +182,27 @@ cost_breakdown_chart <- plot_ly(cost_breakdown,
                                                           bgcolor = "FFFFFF",
                                                           bordercolor = "#0a3d62",
                                                           borderwidth = 0.5)) 
+
+##############################################################################################
+# Discharge Statistics for Human Body System Affected                                        #
+##############################################################################################
+
+# need to add in data visualization 
+
 ##############################################################################################
 # Discharge Table                                                                            #
 ##############################################################################################
 # Renaming columns for better presentation of the table
-colnames(top_10_discharges) <- c("DRG","2011", "2012", "2013", "2014", "2015", "Total")
+colnames(top_10_discharges) <- c("DRG","2011", "2012", "2013", "2014", "2015", "Total Discharges")
 #Transposing the dataframe for better presenation of the data in the HTML document
-kable(top_10_discharges, digits = 2,  caption = "Top 10 Diagnostic Related Groups with the Most Discharges (2011-15)")
+#Commenting out for the time being
+#kable(top_10_discharges, digits = 2,  caption = "Top 10 Diagnostic Related Groups with the Most Discharges (2011-15)")
 ```
 
-`r discharges_h_bar `
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+`r discharges_h_bar`
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 `r cost_breakdown_chart `
@@ -190,11 +210,128 @@ kable(top_10_discharges, digits = 2,  caption = "Top 10 Diagnostic Related Group
 ## Average Medicare Payment Statistics
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
+```{r Part Three: Average Medicare Payment Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
+
+##############################################################################################
+# Data 
+##############################################################################################
+
+f <- list( family = "Open Sans, Sans Serif, monospace", size = 10, color = "#7f7f7f")
+top_10_medicare <- read.csv("../../Data/Prepared/top_10_avg_medicare_payments.csv")
+top_10_medicare <- top_10_medicare%>% arrange(avg_medicare_payments)
+colnames(top_10_medicare) <- c("drg","2011", "2012", "2013", "2014", "2015", "avg")
+
+# Vertical Bar Chart
+x <- list( title = "Average Medicare Payments($)", titlefont = f)
+y <- list( title = "", titlefont = f)
+
+medicare_payments_bar <- plot_ly(top_10_medicare,
+                              y = ~reorder(drg, avg),
+                              x = ~`avg` , 
+                              type = 'bar', 
+                              name = 'Average Medicare Payments', 
+                              orientation = "h",
+                              marker = list(color = '#079992')) %>% 
+  layout(title = 'Top 10 DRGs with Highest Average Medicare Payments',
+         xaxis = x, 
+         yaxis = y,
+         font = t,
+         margin = list( l = 430, pad = 4), 
+         xaxis = list(tickangle = 45)) %>%
+  add_annotations(xref = 'x1', yref = 'y',
+                  x = ~avg + 5500,
+                  text = ~paste("$",round(avg,2)),
+                  font = list(family = 'Arial', size = 10, color = 'rgb(150, 171, 234)'),
+                  showarrow = FALSE)                  
+```
+
+`r medicare_payments_bar`
+
 ## Average Covered Charge Statistics
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
-## Average Total Payment Statistics
+```{r Part Four: Average Covered Charge Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
+
+##############################################################################################
+# Data
+##############################################################################################
+
+f <- list( family = "Open Sans, Sans Serif, monospace", size = 10, color = "#7f7f7f")
+top_10_covered <- read.csv("../../Data/Prepared/top_10_avg_covered_charges.csv")
+top_10_covered <- top_10_covered%>% arrange(avg_covered_charges)
+colnames(top_10_covered) <- c("drg","2011", "2012", "2013", "2014", "2015", "avg")
+
+
+# Horizontal Bar Chart
+
+y <- list( title = "", titlefont = f)
+x <- list( title = "Number of Discharges", titlefont = f)
+
+covered_charges_h_bar <- plot_ly(top_10_covered,
+                               y = ~reorder(drg, avg),
+                               x = ~`avg` , 
+                               type = 'bar', 
+                               name = 'Average Covered Charges',
+                               orientation = "h",
+                               marker = list(color = '#079992')) %>% 
+                        layout(title = 'Top 10 DRGs with Highest Average Covered Charges',
+                               xaxis = x, 
+                               yaxis = y,
+                               font = t,
+                               margin = list( l = 430, pad = 4),
+                               xaxis = list(tickangle = 45)) %>%
+                        add_annotations(xref = 'x1', yref = 'y',
+                                        x = ~avg + 18000,
+                                        text = ~paste("$",round(avg,2)),
+                                        font = list(family = 'Arial', size = 12, color = 'rgb(150, 171, 234)'),
+                                        showarrow = FALSE)   
+```
+
+`r covered_charges_h_bar`
+
+
+# Average Total Payment Statistics
+
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+```{r Part Five: Average Total Payment Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
+
+##############################################################################################
+# Data - Average Total Payments                                                              #
+##############################################################################################
+f <- list( family = "Open Sans, Sans Serif, monospace", size = 18, color = "#7f7f7f")
+top_10_payments <- read.csv("../../Data/Prepared/top_10_avg_total_payments.csv")
+top_10_payments <- top_10_payments%>% arrange(avg_total_payments)
+colnames(top_10_payments) <- c("drg","2011", "2012", "2013", "2014", "2015", "avg")
+
+
+##############################################################################################
+# Bar Chart Viz for Average Total Payment Statistics
+# Horizontal Bar Chart
+y <- list( title = "", titlefont = f)
+x <- list( title = "Number of Discharges", titlefont = f)
+total_payments_h_bar <- plot_ly(top_10_payments,
+                                 y = ~reorder(drg, avg),
+                                 x = ~`avg` , 
+                                 type = 'bar', 
+                                 name = 'Average Total Payments',
+                                 orientation = "h",
+                                 marker = list(color = '#079992')) %>% 
+  layout(title = 'Top 10 DRGs with Highest Average Total Payments',
+         xaxis = x, 
+         yaxis = y,
+         margin = list(l = 500, pad = 4), 
+         xaxis = list(tickangle = 45)) %>%
+  add_annotations(xref = 'x1', yref = 'y',
+                  x = ~avg + 10000,
+                  text = ~paste("$",round(avg,2)),
+                  font = list(family = 'Arial', size = 12, color = 'rgb(150, 171, 234)'),
+                  showarrow = FALSE) 
+
+
+```
+
+`r total_payments_h_bar`
 
 ## Human Body System Statistics
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.

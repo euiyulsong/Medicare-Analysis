@@ -429,7 +429,7 @@ covered_top100_medicare <- drg_year_breakdown_top100 %>% plot_ly(x = ~avg_covere
 
 # Medical Department Statistics
 
-Statistics made for the common to understand the DRG Discharge and Medicare Cost Statistics.
+The DRG Discharge and Medicare Cost Statistics made for the common person to understand.
 
 ```{r Part Eight:Total Discharge Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
 

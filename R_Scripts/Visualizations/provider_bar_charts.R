@@ -11,7 +11,7 @@ provider.2015 <- provider.total.2015 %>% left_join(provider.medicare.2015, by='P
 write.csv(provider.2015, file = "../../Data/Prepared/provider_2015.csv")
 
 provider.2015.plot.lowest <- provider.2015 %>% arrange(avg_total_payments) %>% slice(1:10)
-write.csv(provider.2015.plot.data.highest,"../../Data/Prepared/provider_2015_plot_data_highest.csv")
+write.csv(provider.2015.plot.lowest,"../../Data/Prepared/provider_2015_plot_data_lowest.csv")
 
 plot.2015.lowest <- plot_ly(provider.2015.plot.lowest, x = ~reorder(Provider.Name, avg_total_payments), y= ~avg_total_payments, type="bar", marker = list(color = 'skyblue'), name = "Average Total Payments") %>% 
         add_trace(y = ~avg_medicare_payments, name = "Average Medicare Payments", marker = list(color = 'blue')) %>% 

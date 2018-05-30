@@ -1,0 +1,41 @@
+---
+title: "graph_euiyul"
+author: "EuiYul Song"
+date: "5/28/2018"
+output: html_document
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+
+library(dplyr)
+library(readr)
+library(tidyr)
+library(ggplot2)
+library(reshape2)
+library(plotly)
+
+Drgs_2011_to_2015 <- read.csv("../../Data/Prepared/DRG_2011_2015.csv")
+Drgs_2011_to_2015
+
+# Yearly Cost data wrangling
+df <- Drgs_2011_to_2015 %>% subset(select=c(year, avg_covered_charges, avg_total_payments, avg_medicare_payments)) %>% group_by(year) %>% summarise(avg_covered_charges = sum(avg_covered_charges, na.rm = TRUE), avg_total_payments = sum(avg_total_payments, na.rm = TRUE),  avg_medicare_payments = sum(avg_medicare_payments, na.rm = TRUE))
+gathered.df <- df %>% gather(key, value, 2:4)
+
+# Cost of Payments by Discharges data wrangling
+df2 <- Drgs_2011_to_2015 %>% subset(select=c(year, discharges, avg_covered_charges, avg_total_payments, avg_medicare_payments)) %>% group_by(year, discharges) %>% summarise(avg_covered_charges = sum(avg_covered_charges, na.rm = TRUE), avg_total_payments = sum(avg_total_payments, na.rm = TRUE),  avg_medicare_payments = sum(avg_medicare_payments, na.rm = TRUE))
+
+gathered.df2 <- df2 %>% gather(key, value, 3:5)
+
+# Visualize Yearly Cost data
+g <- ggplot(gathered.df, aes(year, value, fill=key)) + geom_bar(stat="identity", position="dodge") + ggtitle("Cost of Payments by Discharges") +  xlab("Discharges") + ylab("Cost ($)") + labs(colour = "Payment")
+
+ggplotly(g)
+
+# Visualize Cost of Payments by Discharges
+g2<-ggplot(gathered.df2, aes(discharges, value, group=key)) + 
+            geom_point(aes(color=key), size=2) + 
+            ggtitle("Cost of Payments by Discharges") + xlab("Discharges") + ylab("Cost ($)") + labs(colour = "Payment")
+
+ggplotly(g2)
+```
+`r bla`

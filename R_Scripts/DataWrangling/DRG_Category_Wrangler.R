@@ -40,6 +40,9 @@ body_system_discharges <- discharges %>% group_by(body_system) %>% summarise( di
 
 write.csv(body_system_discharges, file = "../../Data/Prepared/body_system_discharges.csv", row.names=FALSE)
 
+
+View(body_system_discharges)
+
 medical_dept_discharges <- discharges %>% group_by(medical_department) %>% summarise( discharges_2011 = sum(`2011`),
                                                                                       discharges_2012 = sum(`2012`),
                                                                                       discharges_2013 = sum(`2013`),
@@ -49,6 +52,8 @@ medical_dept_discharges <- discharges %>% group_by(medical_department) %>% summa
 
 write.csv(medical_dept_discharges, file = "../../Data/Prepared/medical_dept_discharges.csv", row.names=FALSE)
 
+
+View(medical_dept_discharges)
 ###################################################################################################
 # Average Covered Charges + DRG Category 
 ###################################################################################################

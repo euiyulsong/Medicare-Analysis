@@ -11,9 +11,12 @@ Discharge_Bar_Chart <- function (drg.name, data) {
 
   data <-filter (data, drg == drg.name)
   
-  title.discharge <- paste0 ('<b style="color:CF000F">', "Discharge Annual Statistics for ", drg.name," (",data$medical_department, ")", "</b><br>")
+  data$year <- as.character(as.numeric(data$year))
   
-  f <- list( family = "Helvetica", size = 18, color = "1c1c1c")
+  
+  title.discharge <- paste0 ("Discharge Annual Statistics for <br>", drg.name," (",data$medical_department, ")")
+  
+  f <- list( family = "Helvetica", size = 10, color = "1c1c1c")
   
   discharges_bar <- plot_ly(data, 
                             x = ~year,
@@ -21,9 +24,11 @@ Discharge_Bar_Chart <- function (drg.name, data) {
                             type = 'bar', 
                             name = 'Discharge Breakdown',
                             text = ~paste(discharges), 
-                            textposition = 'auto') %>% 
-                    layout(title = title.discharge)
-                         
+                            textposition = 'auto', 
+                            marker = list(color = '#25CCF7')) %>% 
+                    layout(title = title.discharge, 
+                           xaxis = list( title = "Year"),
+                           yaxis = list( title = "Number of Discharges"))
   return (discharges_bar)
 }
 

@@ -24,7 +24,7 @@ ui <- navbarPage (theme = shinytheme("cerulean"),
                   #######################################################
                   # Get a cost breakdown for any DRG
                   # Bar Chart
-                  tabPanel(title ="Cost Breakdown"),
+                  #tabPanel(title ="Cost Breakdown"),
                   
                   #######################################################
                   # Get a breakdown for number of discharges per year
@@ -75,15 +75,10 @@ ui <- navbarPage (theme = shinytheme("cerulean"),
                              mainPanel(
                                plotlyOutput("plot")
                              )
-                           )),
+                           ))
                   
                   # Find a Nearby Provider
-                  tabPanel(title = "Find Provider"), 
+                  #tabPanel(title = "Find Provider"), 
                   
-                  # About Page
-                  tabPanel(title = "About",
-                           h1 ("Top 100 DRG Analysis for Year 2011 by Team Lays", style = "text-align: center;padding: 20px;"),
-                           br(),
-                           h2 ("About our Dataset"), 
-                           p("blalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasda sblalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasdas blalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasdasblalsldasasdsadasdas"))
+
                   )

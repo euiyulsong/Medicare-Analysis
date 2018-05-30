@@ -378,14 +378,23 @@ layout(title = 'Top 10 DRGs with Highest Average Total Payments',
 `r total_payments_h_bar`
 `r avg_covered_charges_plot` 
 
-# Analyzing USA's Health Providers
+# Analyzing USA's Health Providers for the Year 2015
 Within the top 10 providers with the highest average total payments in 2015, Midwestern Region Medical Center and Walnut Hill Medical Center stand out as their average medicare payment is significantly lower than the rest. Upon further research, Midwestern Region Medical Center is primarily a cancer treatment center. Cancer is one of the most expensive conditions to treat, leaving patients with thousands of dollars to be paid from out-of-pocket. “Cancer patients with only Medicare coverage face steep out-of-pocket costs,” “without additional health coverage paid an average of $8,115 a year, “ according to a study done by John Hopkins University. With the other providers, the difference between the total payments and medicare payments is similar. As a cancer treatment hospital, the total charges from the hospital is steep, but the coverage by Medicare is significantly lower, requiring patients to pay out-of-pocket for their treatment.
 
 
+```{r Part Six: Analyzing USA Health Providers, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
 
+highest.2015 <- read.csv("../../Data/Prepared/provider_2015_plot_data_highest.csv")
 
+plot.2015.highest <- plot_ly(highest.2015, x = ~reorder(Provider.Name, -avg_total_payments), y= ~avg_total_payments, type="bar", marker = list(color = 'dodgerblue'), name = "Average Total Payments") %>% 
+  add_trace(y = ~avg_medicare_payments, name = "Average Medicare Payments", marker = list(color = 'lightgreen')) %>% 
+  layout(title = "Top 10 Providers with Highest Average Total Payments in 2015", 
+         xaxis = list(title = 'Provider'),
+         yaxis = list(title = 'Average Total Payments ($)'),
+         barmode = "Group", margin = list(b = 160, t = 50))
+```
 
-
+`r plot.2015.highest`
 
 # Analyzing Cost Change with Time
 ```{r Part IDK: Analyzing Cost Change with Time, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -404,16 +413,9 @@ layout(title = 'Average Medicare Payments Changing with Time for DRGS with Highe
 xaxis = list(type = "log", title="Number of Discharges"), 
 yaxis =list(title="Average Medicare Payments")) %>% 
 animation_opts(1000, easing = "elastic", redraw = FALSE)
-
 ```
 
 `r discharge_top100_medicare`
-
-
-
-
-
-
 
 # Works Cited
 

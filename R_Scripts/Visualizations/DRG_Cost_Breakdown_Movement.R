@@ -13,23 +13,7 @@ discharge_top100_medicare <- drg_year_breakdown_top100 %>% plot_ly(x = ~discharg
                                                                   hoverinfo = "text",
                                                                   type = 'scatter',
                                                                   mode = 'markers') %>% 
-                                                           layout(title = 'Average Medicare Payments Changing with Time and Discharges'
+                                                           layout(title = 'Average Medicare Payments Changing with Time for DRGS with Highest Discharges (top 100)',
                                                                   xaxis = list(type = "log", title="Number of Discharges"), 
                                                                   yaxis =list(title="Average Medicare Payments")) %>% 
                                                            animation_opts(1000, easing = "elastic", redraw = FALSE)
-
-layout(title = 'DRGs with Most Discharges for 2011-15 (Top 10)',
-       font = t,
-       xaxis = x, 
-       yaxis = y,
-       barmode = 'stack',
-       margin = list(l = 420, b = 100, pad = 4), 
-       yaxis = list(tickangle = 90),
-       legend = list(orientation = 'h', 
-                     title = 'Legend',
-                     font = list( family = "sans-serif",
-                                  size = 8,
-                                  color = "#000"),
-                     bgcolor = "FFFFFF",
-                     bordercolor = "#0a3d62",
-                     borderwidth = 0.5))

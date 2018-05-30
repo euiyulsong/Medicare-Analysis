@@ -2,25 +2,8 @@
 # This visualization explores how the various statistics for DRGs have changed with time
 
 library(plotly)
-library(gapminder)
 
-drg_year_breakdown <- read.csv("../../Data/Prepared/year_cost_breakdown.csv")
 drg_year_breakdown_top100 <- read.csv("../../Data/Prepared/year_cost_breakdown_100.csv")
-View(drg_year_breakdown)
-
-drg_year_breakdown <- drg_year_breakdown %>% arrange(-discharges)
-discharge_medicare <- drg_year_breakdown %>% plot_ly(x = ~discharges, 
-                                                    y = ~avg_medicare_payment, 
-                                                    color = ~medical_department, 
-                                                    frame = ~year, 
-                                                    text = ~drg, 
-                                                    hoverinfo = "text",
-                                                    type = 'scatter',
-                                                    mode = 'markers') %>% 
-                                             layout(xaxis = list(type = "log", title="Number of Discharges"), 
-                                                    yaxis =list(title="Average Medicare Payments")) 
-
-
 
 discharge_top100_medicare <- drg_year_breakdown_top100 %>% plot_ly(x = ~discharges, 
                                                                   y = ~avg_medicare_payment, 
@@ -30,6 +13,23 @@ discharge_top100_medicare <- drg_year_breakdown_top100 %>% plot_ly(x = ~discharg
                                                                   hoverinfo = "text",
                                                                   type = 'scatter',
                                                                   mode = 'markers') %>% 
-                                                                  layout(xaxis = list(type = "log", title="Number of Discharges"), 
-                                                                  yaxis =list(title="Average Medicare Payments")) 
-discharge_top100_medicare
+                                                           layout(title = 'Average Medicare Payments Changing with Time and Discharges'
+                                                                  xaxis = list(type = "log", title="Number of Discharges"), 
+                                                                  yaxis =list(title="Average Medicare Payments")) %>% 
+                                                           animation_opts(1000, easing = "elastic", redraw = FALSE)
+
+layout(title = 'DRGs with Most Discharges for 2011-15 (Top 10)',
+       font = t,
+       xaxis = x, 
+       yaxis = y,
+       barmode = 'stack',
+       margin = list(l = 420, b = 100, pad = 4), 
+       yaxis = list(tickangle = 90),
+       legend = list(orientation = 'h', 
+                     title = 'Legend',
+                     font = list( family = "sans-serif",
+                                  size = 8,
+                                  color = "#000"),
+                     bgcolor = "FFFFFF",
+                     bordercolor = "#0a3d62",
+                     borderwidth = 0.5))

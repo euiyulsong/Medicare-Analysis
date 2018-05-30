@@ -122,36 +122,37 @@ family = "Arial",
 size = 9,
 color = 'Black')
 
+top_10_discharges$hover <- with(top_10_discharges, paste(drg, "<br>", total, " discharges"))
 
 discharges_h_bar <- plot_ly(top_10_discharges,
-x = ~`2011`,
-y = ~reorder(drg,total), 
-type = 'bar', 
-orientation = 'h',
-name = '2011', marker = list(color = '#25CCF7')) %>% 
-add_trace(x = ~`2012`, name = "2012", marker = list(color = '#1B9CFC')) %>%
-  add_trace(x = ~`2013`, name = "2013", marker = list(color = '#B33771')) %>% 
-  add_trace(x = ~`2014`, name = "2014", marker = list(color = '#3B3B98')) %>% 
-  add_trace(x = ~`2015`, name = "2015", marker = list(color = '#182C61')) %>%
-  layout(title = 'DRGs with Most Discharges for 2011-15 (Top 10)',
-         font = t,
-         xaxis = x, 
-         yaxis = y,
-         barmode = 'stack',
-         margin = list(l = 420, b = 100, pad = 4), 
-         yaxis = list(tickangle = 90),
-         legend = list(title = 'Legend',
-                       font = list( family = "sans-serif",
-                                    size = 8,
-                                    color = "#000"),
-                       bgcolor = "FFFFFF",
-                       bordercolor = "#0a3d62",
-                       borderwidth = 0.5)) %>%
-  add_annotations(xref = 'x1', yref = 'y',
-                  x = ~total + 160000,
-                  text =  ~paste(total, '<br>discharges'),
-                  font = list(family = 'Arial', size = 10, color = 'rgb(10, 10, 10)'),
-                  showarrow = FALSE)    
+                            x = ~`2011`,
+                            y = ~reorder(drg,total), 
+                            type = 'bar', 
+                            orientation = 'h',
+                            name = '2011', marker = list(color = '#25CCF7')) %>% 
+                            add_trace(x = ~`2012`, name = "2012", marker = list(color = '#1B9CFC')) %>%
+                              add_trace(x = ~`2013`, name = "2013", marker = list(color = '#B33771')) %>% 
+                              add_trace(x = ~`2014`, name = "2014", marker = list(color = '#3B3B98')) %>% 
+                              add_trace(x = ~`2015`, name = "2015", marker = list(color = '#182C61')) %>%
+                              layout(title = 'DRGs with Most Discharges for 2011-15 (Top 10)',
+                                     font = t,
+                                     xaxis = x, 
+                                     yaxis = y,
+                                     barmode = 'stack',
+                                     margin = list(l = 420, b = 100, pad = 4), 
+                                     yaxis = list(tickangle = 90),
+                                     legend = list(title = 'Legend',
+                                                   font = list( family = "sans-serif",
+                                                                size = 8,
+                                                                color = "#000"),
+                                                   bgcolor = "FFFFFF",
+                                                   bordercolor = "#0a3d62",
+                                                   borderwidth = 0.5)) %>%
+                              add_annotations(xref = 'x1', yref = 'y',
+                                              x = ~total + 160000,
+                                              text =  ~paste(total, '<br>discharges'),
+                                              font = list(family = 'Arial', size = 10, color = 'rgb(10, 10, 10)'),
+                                              showarrow = FALSE)
 
 ##############################################################################################
 # Top 10 DRG Discharges Cost Break Down Bar Chart                                            #
@@ -227,25 +228,25 @@ g <- list(scope = 'usa',
   showlakes = TRUE,
   lakecolor = toRGB('white'))
 
-avg_covered_charges_plot <- plot_geo(drg_state_avg_covered_charges, locationmode = 'USA-states') %>%
-  add_trace(
-    z = ~avg_covered_charges, locations = ~state,
-    color = ~avg_covered_charges, colors = 'Blues'
-  ) %>%
-  colorbar(title = "Average Covered Charges") %>%
-  layout(
-    title = 'Average Covered Charges by State',
-    geo = g
-  )
-
 total_discharges_plot <- plot_geo(drg_state_avg_covered_charges, locationmode = 'USA-states') %>%
   add_trace(
     z = ~total_discharges, locations = ~state,
-    color = ~total_discharges, colors = 'Blues'
+    color = ~total_discharges, colors = 'Reds'
   ) %>%
   colorbar(title = "Total Discharges") %>%
   layout(
     title = 'Total Discharges by State',
+    geo = g
+  )
+
+avg_covered_charges_plot <- plot_geo(drg_state_avg_covered_charges, locationmode = 'USA-states') %>%
+  add_trace(
+    z = ~avg_covered_charges, locations = ~state,
+    color = ~avg_covered_charges, colors = 'Greens'
+  ) %>%
+  colorbar(title = "Average Covered Charges") %>%
+  layout(
+    title = 'Average Covered Charges by State',
     geo = g
   )
 ```
@@ -386,8 +387,8 @@ Within the top 10 providers with the highest average total payments in 2015, Mid
 
 highest.2015 <- read.csv("../../Data/Prepared/provider_2015_plot_data_highest.csv")
 
-plot.2015.highest <- plot_ly(highest.2015, x = ~reorder(Provider.Name, -avg_total_payments), y= ~avg_total_payments, type="bar", marker = list(color = 'dodgerblue'), name = "Average Total Payments") %>% 
-  add_trace(y = ~avg_medicare_payments, name = "Average Medicare Payments", marker = list(color = 'lightgreen')) %>% 
+plot.2015.highest <- plot_ly(highest.2015, x = ~reorder(Provider.Name, -avg_total_payments), y= ~avg_total_payments, type="bar", marker = list(color = '#9EC43C'), name = "Average Total Payments") %>% 
+  add_trace(y = ~avg_medicare_payments, name = "Average Medicare Payments", marker = list(color = '#F6AB3B')) %>% 
   layout(title = "Top 10 Providers with Highest Average Total Payments in 2015", 
          xaxis = list(title = 'Provider'),
          yaxis = list(title = 'Average Total Payments ($)'),
@@ -396,8 +397,8 @@ plot.2015.highest <- plot_ly(highest.2015, x = ~reorder(Provider.Name, -avg_tota
 
 lowest.2015 <- read.csv("../../Data/Prepared/provider_2015_plot_data_lowest.csv")
 
-plot.2015.lowest <- plot_ly(lowest.2015, x = ~reorder(Provider.Name, avg_total_payments), y= ~avg_total_payments, type="bar", marker = list(color = 'skyblue'), name = "Average Total Payments") %>% 
-        add_trace(y = ~avg_medicare_payments, name = "Average Medicare Payments", marker = list(color = 'blue')) %>% 
+plot.2015.lowest <- plot_ly(lowest.2015, x = ~reorder(Provider.Name, avg_total_payments), y= ~avg_total_payments, type="bar", marker = list(color = '#9EC43C'), name = "Average Total Payments") %>% 
+        add_trace(y = ~avg_medicare_payments, name = "Average Medicare Payments", marker = list(color = '#F6AB3B')) %>% 
         layout(title = "Top 10 Providers with Lowest Average Total Payments in 2015", 
           xaxis = list(title = 'Provider'),
           yaxis = list(title = 'Average Total Payments ($)'),
@@ -422,14 +423,13 @@ discharge_top100_medicare <- drg_year_breakdown_top100 %>% plot_ly(x = ~avg_cove
                                                                     hoverinfo = "text",
                                                                     type = 'scatter',
                                                                     mode = 'markers') %>% 
-                                                                    layout(title = 'Average Medicare Payments Changing with Time for DRGS with Highest Discharges (top 100)',
+                                                                    layout(title = 'Average Medicare Payments vs Covered Charges vs Time for DRG Top 100 Discharges',
                                                                     xaxis = list(type = "log", title="Average Covered Charges($)"), 
                                                                     yaxis =list(title="Average Medicare Payments($)")) %>% 
                                                                     animation_opts(1000, easing = "elastic", redraw = FALSE)
 ```
 
 `r discharge_top100_medicare`
-
 
 # Works Cited
 

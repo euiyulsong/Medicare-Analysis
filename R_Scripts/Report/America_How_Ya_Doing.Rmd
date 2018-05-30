@@ -14,12 +14,14 @@ library (knitr)
 library (plotly)
 
 # Main Dataset
-
+# Do not need at the moment
 ```
 
 # Introduction
 
-The Medicare program of the United States, is a federal insurance program to help mitigate the financial burden healthcare places on people of ages 65 years and older, younger people with disabilities, and people with end-stage renal diseases. This project explores the most expensive inpatient procedures in the United States to get a better understanding of how these costs vary by state, year and more. This will provide Medicare beneficiaries with information on the varying costs of certain procedures. It will also give an overview of where much of the money allotted to Medicare is being used and how that amount is changing over the years.
+The Medicare program of the United States, is a federal insurance program to help mitigate the financial burden healthcare places on people of ages 65 years and older, younger people with disabilities, and people with end-stage renal diseases. Each medicare covered inpatient procedure and service is classfied under a *DRG (Diagnostic Related Group) Number and Label* which is used to help classify medicare charges. This project explores DRG records for the years 2011 - 2015 and produces different visualizations and insights. 
+
+We have explored the most expensive inpatient procedures in the United States to get a better understanding of how these costs vary by state, year and more. This will provide Medicare beneficiaries with information on the varying costs of certain procedures. It will also give an overview of where much of the money allotted to Medicare is being used and how that amount is changing over the years.
 
 # Data Sources
 
@@ -29,15 +31,15 @@ The Medicare program of the United States, is a federal insurance program to hel
 
 *Link to Datasets* 
   
-  * Top 100 DRGs for FY 2011: 
-  * Top 100 DRGs for FY 2012: 
-  * Top 100 DRGs for FY 2013: 
-  * All DRGs for FY 2014: 
-  * All DRGs for FY 2015: 
+* Top 100 DRGs for FY 2011: 
+* Top 100 DRGs for FY 2012: 
+* Top 100 DRGs for FY 2013: 
+* All DRGs for FY 2014: 
+* All DRGs for FY 2015: 
   
-  **Key Facts about the dataset:** 
+**Key Facts about the dataset:** 
   
-  * Represent more than 7 million discharges or 60 percent of total Medicare IPPS discharges
+* Represent more than 7 million discharges or 60 percent of total Medicare IPPS discharges
 * More than 3,000  U.S. hospitals (that received Medicare) represented 
 
 ## DRG Category List
@@ -46,21 +48,21 @@ Dr.Jihjane Li, an independant doctor, provided us with a dataset which categoriz
 
 *Link to Dataset:* 
   
-  # DRG DataSet for 2011 to 2015
+# DRG DataSet for 2011 to 2015
   
-  For our investigation, we created a parent dataset, which would contain all the DRG discharge and medicare data for the years 2011 - 2015.
+For our investigation, we created a parent dataset, which would contain all the DRG discharge and medicare data for the years 2011 - 2015.
 
 To make this dataset we did the following steps:
   
-  * Data Wrangling: We binded the datasets for all the 5 years and joined them to DRG Category dataset we got from Dr.Jihjane Li.
+* Data Wrangling: We binded the datasets for all the 5 years and joined them to DRG Category dataset we got from Dr.Jihjane Li.
 * Data Cleaning: We normalized the DRG name for each DRG number. This was because some of the DRGs Numbers had got small updates to their names such as a "+" in place of a ">". 
 * Data Exploration: Through our data exploration we were able to identify that we have data for all 5 years for only *91 DRGs*.
 
 **Link to Dataset:**
   
-  ## Data Set Variables
+## Data Set Variables
   
-  * **DRG Definition:** The code and description identifying the MS-DRG. MS-DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay.
+* **DRG Definition:** The code and description identifying the MS-DRG. MS-DRGs are a classification system that groups similar clinical conditions (diagnoses) and the procedures furnished by the hospital during the stay.
 * **Provider Id:** The CMS Certification Number (CCN) assigned to the Medicare certified hospital facility.
 * **Provider Name:** The name of the provider.
 * **Provider Street Address:** The provider’s street address.
@@ -79,22 +81,23 @@ To make this dataset we did the following steps:
 
 In addition to the parent dataset, we created overview datasets to give a concise overview about the following statistics for each DRG, medical department, and human body system: 
   
-  * Total Discharges 
+* Total Discharges 
 * Average Medicare Payments
 * Average Covered Charges 
 * Average Total Payments 
 
 In addition to these overview datasets, we created datasets for the top 5, 10, 20, 50 and 100 DRGs for each statistic. 
 
-Link to Overview Datasets:
-  
-  --------------------------------------------------------
-  
-  # Overview of Medicare Beneficiaries for 2011 - 2015
-  
-  ## Total Discharge Statistics
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+[Download Overview Datasets](https://drive.google.com/drive/folders/1jFGiPVSD6bUyfyUvHMoYUWjG5qbjXl9V?usp=sharing)
 
+--------------------------------------------------------
+  
+# Overview of Medicare Beneficiaries for 2011 - 2015
+  
+## Total Discharge Statistics
+From looking at the bar chart below, we can see that **“Major joint replacement of lower extremity w/o MCC” had the most discharges from 2011-15**, with a total of **2224929 discharges**. This may be due to the fact that “hip, knee and other joint replacement procedures are among the most common elective surgeries in the United States”. In fact, the ages of people undergoing joint replacement surgeries has been slowly decreasing. Reasons for this may include the increasing rates of obesity in the United States. However it may also be due to the fact that more people are staying active as they move into old age. The level of activity that is desirable for older adults these days may be putting extra pressure on their joints, causing them to need joint replacement surgeries. 
+
+Not far behind in the DRGs with the most discharges is **“Septicemia or severe sepsis w/o MV 96+ hours w/ MCC”**. Sepsis is a life threatening condition where *“chemicals released into the bloodstream to fight the infection trigger inflammatory responses throughout the body”*. Sepsis is caused by infections, which are quite common. Weak immune systems can make people more prone to sepsis and older people - including the ones who qualify for Medicare - often have weaker immune systems.
 ```{r Part Two:Total Discharge Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
 
 ##############################################################################################
@@ -200,16 +203,56 @@ colnames(top_10_discharges) <- c("DRG","2011", "2012", "2013", "2014", "2015", "
 #kable(top_10_discharges, digits = 2,  caption = "Top 10 Diagnostic Related Groups with the Most Discharges (2011-15)")
 ```
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  
-  `r discharges_h_bar`
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  
-  `r cost_breakdown_chart `
+`r discharges_h_bar`
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+In addition to having the most discharges, **“Major joint replacement of lower extremity w/o MCC” also has the most average covered charges, average total payments, and average medicare charges.** The costs of joint replacements vary by the type of implant, the surgical approach, preexisting conditions, time spent on the operating table, time spent in the hospital, and any complications that arise. Seeing as patients often have to spend quite a bit of time in the hospital for these procedures and the implants themselves are quite expensive, it makes sense that this DRG has the most average covered charges, average total payments, and average medicare charges. 
+
+The second DRG with the most discharges also happens to have the second highest amount in average covered charges. **This DRG is “Septicemia or severe sepsis w/o MV 96+ hours w/ MCC”**. Sepsis is a life threatening condition where “chemicals released into the bloodstream to fight the infection trigger inflammatory responses throughout the body”. These inflammatory responses can damage organ systems and cause organ failure, often leading to death. Patients with severe sepsis often have damage to multiple organ systems, and treating numerous organ systems is quite expensive. 
+
+Finally, the **fifth DRG with the most discharges, “Heart failure & shock w/ MCC” has the third highest amount in average covered charges, average total payments, and average medicare charges**. Heart failure occurs when your heart is not pumping blood efficiently. A patient can die if their heart becomes too weak or stiff to pump blood. In order to trigger the heart to pump at a more normal rhythm, their hearts need to be shocked. If complications arise, the procedure can become even more costly.
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+`r cost_breakdown_chart `
+
+## Total Discharges for All States of USA
+In looking at the number of discharges by state, we can clearly see that Florida, Texas, California, and New York have the most number of discharges. Seeing as these states also have the highest populations, it is no surprise that they have the most number of discharges.
+
+```{r Part One and Two Chloropleths, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
+drg_state_avg_covered_charges <- read.csv("../../Data/Prepared/drg_state_avg_covered_charges.csv")
+g <- list(scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showlakes = TRUE,
+  lakecolor = toRGB('white'))
+
+avg_covered_charges_plot <- plot_geo(drg_state_avg_covered_charges, locationmode = 'USA-states') %>%
+  add_trace(
+    z = ~avg_covered_charges, locations = ~state,
+    color = ~avg_covered_charges, colors = 'Blues'
+  ) %>%
+  colorbar(title = "Average Covered Charges") %>%
+  layout(
+    title = 'Average Covered Charges by State',
+    geo = g
+  )
+
+total_discharges_plot <- plot_geo(drg_state_avg_covered_charges, locationmode = 'USA-states') %>%
+  add_trace(
+    z = ~total_discharges, locations = ~state,
+    color = ~total_discharges, colors = 'Blues'
+  ) %>%
+  colorbar(title = "Total Discharges") %>%
+  layout(
+    title = 'Total Discharges by State',
+    geo = g
+  )
+```
+
+`r total_discharges_plot`
 
 ## Average Medicare Payment Statistics
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
 ```{r Part Three: Average Medicare Payment Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -245,12 +288,14 @@ layout(title = 'Top 10 DRGs with Highest Average Medicare Payments',
                   font = list(family = 'Arial', size = 10, color = 'rgb(10, 10, 10)'),
                   showarrow = FALSE)                  
 ```
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
 `r medicare_payments_bar`
 
-## Average Covered Charge Statistics
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+**Did you Know?:**
+> Heart transplants and heart assist system implants are quite expensive, but if patients under Medicare meet the medical criteria for these surgeries, Medicare will cover some of the charges. Because these heart transplants are so expensive - they can be over a million dollars - it makes sense that the top DRG with the highest average Medicare payments is “heart transplant or implant of heart assist system w/ MCC”. While these procedures have a whopping $85370.33 average, the next DRG with the highest average Medicare payment is “ECMO or trach w/ > 96 hrs or PDX EXC face, mouth & neck w/ MAJ O.R.” at $48640.82. Systems like ECMO cost quite a bit as they provide patients with “cardiac and respiratory support” to keep them alive. This type of machinery, when going on for long periods of time, racks up large bills.
 
+## Average Covered Charge Statistics
 ```{r Part Four: Average Covered Charge Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
 
 ##############################################################################################
@@ -292,9 +337,6 @@ layout(title = 'Top 10 DRGs with Highest Average Covered Charges',
 
 
 # Average Total Payment Statistics
-
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
 ```{r Part Five: Average Total Payment Statistics, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
 
 ##############################################################################################
@@ -334,13 +376,19 @@ layout(title = 'Top 10 DRGs with Highest Average Total Payments',
 ```
 
 `r total_payments_h_bar`
+`r avg_covered_charges_plot` 
 
-## Human Body System Statistics
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+# Analyzing USA's Health Providers
+Within the top 10 providers with the highest average total payments in 2015, Midwestern Region Medical Center and Walnut Hill Medical Center stand out as their average medicare payment is significantly lower than the rest. Upon further research, Midwestern Region Medical Center is primarily a cancer treatment center. Cancer is one of the most expensive conditions to treat, leaving patients with thousands of dollars to be paid from out-of-pocket. “Cancer patients with only Medicare coverage face steep out-of-pocket costs,” “without additional health coverage paid an average of $8,115 a year, “ according to a study done by John Hopkins University. With the other providers, the difference between the total payments and medicare payments is similar. As a cancer treatment hospital, the total charges from the hospital is steep, but the coverage by Medicare is significantly lower, requiring patients to pay out-of-pocket for their treatment.
+
+
+
+
+
+
 
 # Analyzing Cost Change with Time
-
-```{r Part Six: Analyzing Cost Change with Time, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
+```{r Part IDK: Analyzing Cost Change with Time, results = 'asis', echo=FALSE, message=FALSE, warning=FALSE}
 
 drg_year_breakdown_top100 <- read.csv("../../Data/Prepared/year_cost_breakdown_100.csv")
 
@@ -358,4 +406,24 @@ yaxis =list(title="Average Medicare Payments")) %>%
 animation_opts(1000, easing = "elastic", redraw = FALSE)
 
 ```
+
 `r discharge_top100_medicare`
+
+
+
+
+
+
+
+# Works Cited
+
+* https://www.cnn.com/2018/03/06/health/hip-knee-replacement-surgeries-earlier-study/index.html
+* https://medicare.com/coverage/does-medicare-cover-hip-replacements/
+* https://medicare.com/coverage/does-medicare-cover-knee-replacement-surgery/
+* https://www.healthline.com/health/total-knee-replacement-surgery/understanding-costs
+* https://medicare.com/coverage/does-medicare-cover-a-heart-transplant/
+* https://en.wikipedia.org/wiki/Extracorporeal_membrane_oxygenation
+* https://www.mayoclinic.org/diseases-conditions/sepsis/symptoms-causes/syc-20351214
+* https://www.medicare.gov/Pubs/pdf/11931-Cancer-Treatment-Services.pdf
+* https://medigapseminars.org/the-cost-of-cancer-treatment-with-medicare/
+*https://www.washingtonpost.com/news/to-your-health/wp/2016/11/23/many-medicare-cancer-patients-hit-by-high-out-of-pocket-costs/?noredirect=on&utm_term=.71bcc9bc21b9

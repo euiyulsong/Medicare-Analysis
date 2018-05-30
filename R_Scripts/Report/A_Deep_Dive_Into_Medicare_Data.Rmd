@@ -1,0 +1,18 @@
+---
+title: "A Deep Dive into Medicare Data"
+author: "Zoshua Colah, Vanessa Hsu, Eui Yul Song, Katherine Lui"
+date: "5/24/2018"
+output: html_document
+---
+  
+```{r Part One:Summary, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Loading Libraries
+library(devtools)
+library (dplyr)
+library (knitr)
+library (plotly)
+
+# Main Dataset
+
+```

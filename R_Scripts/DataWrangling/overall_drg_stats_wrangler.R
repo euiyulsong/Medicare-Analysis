@@ -171,8 +171,10 @@ year_cost_breakdown <- all_DRGdata %>% group_by(drg, year, medical_department) %
                                                                avg_medicare_payment = mean(avg_medicare_payments), 
                                                                avg_covered_charge = mean(avg_covered_charges), 
                                                                avg_total_payment = mean(avg_total_payments)) %>% arrange (-discharges)
-write.csv(year_cost_breakdown, file = "../../Data/Prepared/year_cost_breakdown.csv", row.names=FALSE)
+View(year_cost_breakdown)
 
+
+write.csv(year_cost_breakdown, file = "../../Data/Prepared/year_cost_breakdown.csv", row.names=FALSE)
 top_100_discharge_names <- top_100_discharges %>% select(drg)
 year_cost_breakdown_100 <- year_cost_breakdown %>% semi_join(top_100_discharge_names, by = "drg")
 write.csv(year_cost_breakdown_100 , file = "../../Data/Prepared/year_cost_breakdown_100.csv", row.names=FALSE)

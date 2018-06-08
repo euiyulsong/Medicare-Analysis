@@ -1,6 +1,6 @@
 
-#Project Description
-*Eui Yul Song, Katherine Lui, Vanessa Hsu, Zoshua Colah*
+# Project Description
+## Eui Yul Song, Katherine Lui, Vanessa Hsu, Zoshua Colah
 ______________________________________________________________________
 
 Project Update: 

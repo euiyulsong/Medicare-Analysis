@@ -1,5 +1,3 @@
-
-# Project Description
 ## Eui Yul Song, Katherine Lui, Vanessa Hsu, Zoshua Colah
 
 ## ABSTRACT
